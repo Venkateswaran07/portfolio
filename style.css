@@ -1,0 +1,681 @@
+/* CSS Variables & Reset */
+:root {
+    --bg-dark: #121214;
+    /* Matte Black/Dark Gray */
+    --bg-secondary: #0a0a0b;
+    --primary-color: #FF6B6B;
+    /* Jensen Coral/Orange */
+    --accent-color: #FF8787;
+    /* Lighter Coral */
+    --text-primary: #ffffff;
+    --text-secondary: #888899;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    /* Subtler border */
+    --blur: 10px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Background Glow Effect */
+.background-glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(108, 92, 231, 0.15) 0%, rgba(5, 5, 16, 0) 70%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Typography & Utilities */
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.section {
+    padding: 80px 20px;
+    min-height: 80vh;
+    /* Make sections substantial */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    text-align: center;
+    background: linear-gradient(to right, var(--text-primary), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    /* Animated later */
+    transform: translateY(20px);
+    animation: fadeUp 1s forwards;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 30px;
+    transition: var(--transition);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(108, 92, 231, 0.2);
+    border-color: rgba(108, 92, 231, 0.3);
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(5, 5, 16, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links li a {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: var(--transition);
+}
+
+.nav-links li a:hover::after {
+    width: 100%;
+}
+
+.hamburger {
+    display: none;
+    /* Add responsive logic later if needed */
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 3px;
+    transition: var(--transition);
+}
+
+/* Helper Buttons */
+.btn {
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    outline: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), #a29bfe);
+    color: white;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background: rgba(108, 92, 231, 0.1);
+}
+
+.resume-btn {
+    margin-left: 20px;
+}
+
+/* Hero Section - Updated for Jensen Style */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Split layout */
+    padding: 0 10%;
+    /* More side padding */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Left Content */
+.hero-content {
+    flex: 1;
+    text-align: left;
+    /* Align text to left */
+    z-index: 2;
+}
+
+.hero-content h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.hero-content h2 span {
+    color: var(--primary-color);
+    /* The "dot" color */
+    font-size: 2rem;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    background: none;
+    -webkit-text-fill-color: initial;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.hero-content .highlight-name {
+    color: var(--text-primary);
+    /* Or white */
+}
+
+.hero-content h3 {
+    font-size: 2.5rem;
+    /* Larger role text */
+    color: var(--text-primary);
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.hero-content p {
+    max-width: 500px;
+    /* Limit width for reading */
+    margin-bottom: 40px;
+}
+
+.cta-group {
+    justify-content: flex-start;
+    /* Align buttons left */
+}
+
+/* Right Image Area - Diagonal Pill Style */
+.hero-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* The Orange Diagonal Shape */
+/* The Orange Diagonal Shape - REMOVED (User image contains the shape) */
+.hero-blob {
+    display: none;
+}
+
+/* The Image Frame (Transparent wrapper) */
+.hero-circle {
+    position: relative;
+    width: 600px;
+    /* Increased size for the full custom image */
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.2));
+}
+
+/* Floating Elements (Decorations from reference) */
+.floating-icon {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.1);
+    font-size: 3rem;
+    animation: float 6s ease-in-out infinite;
+}
+
+.icon-1 {
+    top: 20%;
+    right: 10%;
+    animation-delay: 0s;
+}
+
+.icon-2 {
+    bottom: 20%;
+    right: 20%;
+    animation-delay: 2s;
+}
+
+.icon-3 {
+    top: 30%;
+    left: 45%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 968px) {
+    .hero-section {
+        flex-direction: column-reverse;
+        /* Image on top for mobile? Or stack normally */
+        justify-content: center;
+        text-align: center;
+        padding-top: 100px;
+    }
+
+    .hero-content {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .cta-group {
+        justify-content: center;
+    }
+
+    .hero-circle {
+        width: 280px;
+        height: 280px;
+    }
+}
+
+
+/* Animations */
+.animate-text {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s forwards;
+}
+
+.del-1 {
+    animation-delay: 0.1s;
+}
+
+.del-2 {
+    animation-delay: 0.3s;
+}
+
+.del-3 {
+    animation-delay: 0.5s;
+}
+
+.del-4 {
+    animation-delay: 0.7s;
+}
+
+.del-5 {
+    animation-delay: 0.9s;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Skills Strip (Below Hero) */
+.skills-strip {
+    background: #0a0a0b;
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.skills-strip-content {
+    display: flex;
+    gap: 50px;
+    opacity: 0.5;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.skills-strip span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* About Section - Split Layout */
+.about-section-split {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 60px;
+    padding: 0 5%;
+}
+
+.services-list {
+    flex: 1;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    padding-left: 40px;
+}
+
+.service-item {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.service-item::before {
+    content: '';
+    position: absolute;
+    left: -46px;
+    /* Align with border line */
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.service-item h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.about-text-content {
+    flex: 1.5;
+}
+
+.stats-grid {
+    display: flex;
+    gap: 50px;
+    margin-top: 40px;
+}
+
+.stat-item h2 {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+}
+
+.stat-item h2 span {
+    color: var(--primary-color);
+}
+
+.stat-item p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Update Glass Card for Matte Look */
+.glass-card {
+    background: #18181c;
+    /* Solid dark instead of glass */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    background: rgba(108, 92, 231, 0.1);
+    color: var(--primary-color);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(108, 92, 231, 0.3);
+    transition: var(--transition);
+}
+
+.tag:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.project-card h4 {
+    color: var(--accent-color);
+    margin-bottom: 5px;
+}
+
+.project-card .location-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+.project-card p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.tech-stack {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.tech-stack span {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    background: rgba(0, 206, 201, 0.1);
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+.github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: white;
+    transition: var(--transition);
+}
+
+.github-link:hover {
+    color: var(--primary-color);
+}
+
+/* Contact */
+.contact-card {
+    display: flex;
+    gap: 50px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-info p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.social-links.big {
+    margin-top: 20px;
+}
+
+.social-links.big a {
+    font-size: 2rem;
+    margin-right: 20px;
+    transition: var(--transition);
+}
+
+.social-links.big a:hover {
+    color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.contact-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.03);
+    color: white;
+    outline: none;
+    transition: var(--transition);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Footer */
+footer {
+    padding: 30px;
+    text-align: center;
+    color: var(--text-secondary);
+    background: rgba(5, 5, 16, 0.95);
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 20px;
+    }
+
+    .nav-links,
+    .resume-btn {
+        display: none;
+        /* Hide for now, can implement mobile menu if needed */
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .contact-card {
+        flex-direction: column;
+    }
+}
