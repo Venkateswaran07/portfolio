@@ -87,21 +87,50 @@ a {
 }
 
 /* Glassmorphism Cards */
+/* Glassmorphism Cards */
 .glass-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--blur));
-    -webkit-backdrop-filter: blur(var(--blur));
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.02);
+    /* Very subtle fill */
+    backdrop-filter: blur(12px);
+    /* Moderate blur for clean look */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Stronger, distinct border */
     border-radius: 16px;
+    /* Slightly less rounded */
     padding: 30px;
     transition: var(--transition);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    /* Minimal shadow */
+    position: relative;
+    overflow: hidden;
 }
 
 .glass-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 40px rgba(108, 92, 231, 0.2);
-    border-color: rgba(108, 92, 231, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    /* Bright border on hover */
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    /* White glow */
+}
+
+/* Internal shine effect on hover */
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.05), transparent);
+    transform: skewX(-25deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.glass-card:hover::before {
+    left: 150%;
 }
 
 /* Navbar */
@@ -113,10 +142,12 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(5, 5, 16, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(5, 5, 16, 0.7);
+    /* More translucent */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     z-index: 1000;
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .logo {
@@ -181,12 +212,15 @@ a {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-color), #a29bfe);
-    color: white;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--text-primary);
 }
 
 .btn-primary:hover {
-    box-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
+    background: rgba(255, 107, 107, 0.1);
+    /* Subtle fill on hover */
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.4);
     transform: scale(1.05);
 }
 
@@ -290,9 +324,8 @@ a {
 /* The Image Frame (Transparent wrapper) */
 .hero-circle {
     position: relative;
-    width: 600px;
-    /* Increased size for the full custom image */
-    height: 600px;
+    width: 750px;
+    height: 750px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -303,7 +336,7 @@ a {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.4));
 }
 
 /* Floating Elements (Decorations from reference) */
@@ -364,8 +397,8 @@ a {
     }
 
     .hero-circle {
-        width: 280px;
-        height: 280px;
+        width: 400px;
+        height: 400px;
     }
 }
 
@@ -402,6 +435,48 @@ a {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Hero Image Entrance Animation */
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Click Pulse Animation */
+/* Click Pulse Animation */
+@keyframes clickPulse {
+    0% {
+        box-shadow: 0 0 0 rgba(255, 107, 107, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(255, 107, 107, 0.6);
+        /* Soft glow */
+    }
+
+    100% {
+        box-shadow: 0 0 0 rgba(255, 107, 107, 0);
+    }
+}
+
+.hero-pop-in {
+    animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    /* Bouncy entrance */
+    opacity: 0;
+    /* Start hidden */
+    animation-delay: 0.5s;
+}
+
+.hero-click-effect {
+    animation: clickPulse 0.4s ease-out;
 }
 
 /* Skills Strip (Below Hero) */
@@ -494,17 +569,7 @@ a {
 }
 
 /* Update Glass Card for Matte Look */
-.glass-card {
-    background: #18181c;
-    /* Solid dark instead of glass */
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-}
 
-.glass-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--primary-color);
-}
 
 .tags {
     display: flex;
@@ -582,6 +647,12 @@ a {
 
 .github-link:hover {
     color: var(--primary-color);
+}
+
+.project-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
 }
 
 /* Contact */
